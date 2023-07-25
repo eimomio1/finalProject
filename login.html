@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertEase Connect - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Welcome to PropertEase Connect!</h1>
+  </header>
+
+  <main>
+    <!-- Login Form -->
+    <section>
+      <h2>Login</h2>
+      <form id="loginForm" action="login.php" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <!-- Hidden input field for user type -->
+        <input type="hidden" id="userType" name="userType">
+
+        <!-- User type selection dropdown -->
+        <label for="userTypeSelect">Select User Type:</label>
+        <select id="userTypeSelect" name="userType" required>
+          <option value="" disabled selected>Select user type</option>
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit">Login</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Add CSS and additional JavaScript as needed -->
+</body>
+
+</html>
