@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Dashboard - PropertEase Connect</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to PropertEase Connect!</h1>
+  </header>
+
+  <main>
+    <section>
+      <!-- Display the welcome note based on the server response -->
+      <h2 id="welcomeNote"></h2>
+      <!-- Add other buyer dashboard content here -->
+    </section>
+  </main>
+
+  <script>
+    // Function to display the welcome message
+    function showWelcomeMessage() {
+      // Extract the welcome message from the query parameter
+      const params = new URLSearchParams(window.location.search);
+      const welcomeMessage = params.get('welcomeMessage');
+      const welcomeNote = document.getElementById("welcomeNote");
+      
+      // Display the welcome message
+      welcomeNote.innerText = welcomeMessage || "Welcome to the buyer dashboard!";
+    }
+    
+    // Call the function to display the welcome message
+    showWelcomeMessage();
+  </script>
+</body>
+</html>
