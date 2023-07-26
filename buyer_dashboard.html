@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- buyer_dashboard.html  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buyer Dashboard - PropertEase Connect</title>
@@ -16,7 +17,23 @@
       <!-- Display the welcome note based on the server response -->
       <h2 id="welcomeNote"></h2>
       <!-- Add other buyer dashboard content here -->
+
+      <!-- Search bar -->
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search..." oninput="searchProperties()">
+        <button type="button" id="searchButton" onclick="searchProperties()">Search</button>
+      </div>
+
+      <!-- Display the search results -->
+      <div id="searchResults" class="property-cards"></div>
     </section>
+	<!-- Wishlist container -->
+    <section>
+      <h2>Your Wishlist</h2>
+      <div id="wishlistContainer"></div>
+    </section>
+
+	<button type="button" id="logoutButton" onclick="logout()">Logout</button>
   </main>
 
   <script>
@@ -26,12 +43,65 @@
       const params = new URLSearchParams(window.location.search);
       const welcomeMessage = params.get('welcomeMessage');
       const welcomeNote = document.getElementById("welcomeNote");
-      
+
       // Display the welcome message
       welcomeNote.innerText = welcomeMessage || "Welcome to the buyer dashboard!";
+	   loadWishlist();
     }
+
+    // Function to perform the search
+    function searchProperties() {
+      const searchTerm = document.getElementById("searchInput").value.trim();
+      const searchResults = document.getElementById("searchResults");
+
+      // Clear previous search results
+      searchResults.innerHTML = "";
+
+      // Perform the search via AJAX request to the server
+      if (searchTerm !== "") {
+        fetch(`search_properties.php?searchTerm=${encodeURIComponent(searchTerm)}`)
+          .then(response => response.json())
+          .then(data => {
+            // Display the search results with clickable display cards
+            displaySearchResults(data);
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    }
+
+    // Function to display the search results with clickable display cards
+     function displaySearchResults(properties) {
+      const searchResults = document.getElementById("searchResults");
+      searchResults.innerHTML = "";
+
+      // Display the search results with clickable display cards
+      properties.forEach(property => {
+        const propertyCard = document.createElement("div");
+        propertyCard.classList.add("property-card");
+        propertyCard.innerHTML = `
+          <a href="property_details.php?id=${property.id}">
+            <img src="${property.image}" alt="${property.property_name}">
+          </a>
+          <h3>${property.property_name}</h3>
+          <p><strong>Location:</strong> ${property.location}</p>
+          <p><strong>Price:</strong> $${property.price}</p>
+          <p><strong>Size:</strong> ${property.size} sqft</p>
+          <p><strong>Description:</strong> ${property.description}</p>
+          <p><strong>Amenities:</strong> ${property.amenities}</p>
+          <button type="button" onclick="addToWishlist(${property.id})">Add to Wishlist</button>
+        `;
+        searchResults.appendChild(propertyCard);
+      });
+    }
+ function logout() {
+    // Perform any necessary logout actions (e.g., clearing session data)
     
-    // Call the function to display the welcome message
+    // Redirect the user to the login page
+    window.location.href = "login.html";
+  }
+ 
+
+  
     showWelcomeMessage();
   </script>
 </body>

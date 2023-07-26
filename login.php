@@ -1,5 +1,6 @@
 <?php
 session_start();
+//login.php
 // Database configuration
 $servername = "localhost";
 $username = "eimomio1";
