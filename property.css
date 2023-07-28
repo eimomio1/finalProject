@@ -1,14 +1,15 @@
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
+    font-family: Georgia, serif;
+    background-color: #8fbc8f;
+    color: #fff;
+    padding: 10px;
 }
+
 img {
 	position: absolute;
 	left: 1px;
@@ -16,6 +17,7 @@ img {
 	height: 600px;
 }
 main{
+	font-family: Arial, sans-serif;
 	position: absolute;
 	right: 20px;
 

@@ -1,0 +1,50 @@
+body {
+  font-family: Palatino, URW Palladio L, serif;
+  
+  margin: 0;
+  padding: 0;
+  background-color: white;	  
+  
+}
+header {
+	  font-family: Georgia, serif;
+  background-color: #8fbc8f;
+  color: #fff;
+
+  padding: 10px;
+}
+.the_main{
+padding-left: 10px;
+}
+.log{
+position: absolute;
+left: 1000px;
+top: 30px;
+
+}
+h2{
+	  color: #8FBC8F;
+	  margin-bottom: -5px;
+}
+hr {
+	  border-top: 3px solid #8FBC8F;
+	  
+}
+p{
+	font-size: 19px;
+}
+ul{
+	font-size: 18px;
+}
+.house {
+ position: absolute;
+  top: 380px;
+  right: 5px;
+}
+.neighborhood{
+  position: absolute;
+  top: 685px;
+  right: 5px;
+  padding-bottom: 5px;
+	
+}
