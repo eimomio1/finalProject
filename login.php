@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (password_verify($password, $hashedPassword)) {
                 // Password is correct, set up session variables and redirect to the appropriate dashboard
                 $_SESSION['user_id'] = $userData['id'];
+                $_SESSION['username'] = $userData['username'];
                 $_SESSION['user_type'] = $userType; // Save user type in session for future reference
 
                 if ($userType === 'buyer') {

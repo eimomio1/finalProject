@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  font-family: Georgia, serif;
+  background-color: #8fbc8f;
+  color: #fff;
+  padding: 10px;
+}
+
+img {
+  position: absolute;
+  left: 1px;
+  width: 900px;
+  height: 600px;
+}
+
+main {
+  font-family: Arial, sans-serif;
+  position: absolute;
+  right: 20px;
+  color: #333; /* Text color */
+  background-color: #f7f7f7; /* Background color */
+  padding: 20px; /* Add some padding to the text */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  width: calc(100% - 940px); /* Calculate the available width (900px + 20px + 20px) */
+  line-height: 2.0; /* Increase line height for better readability */
+  text-align: justify; /* Justify the text for a clean look */
+  transition: background-color 0.3s ease; /* Add a smooth transition on hover */
+}
+
+/* Add a hover effect */
+main:hover {
+  background-color: #d4d4d4;
+}

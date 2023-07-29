@@ -32,11 +32,30 @@ if ($conn->query($createPropertiesTable) === TRUE) {
     // Insert sample data into the 'properties' table
     $insertSampleData = "INSERT INTO properties (property_name, location, price, size, description, amenities, image) VALUES
         ('Luxury Villa', 'New York', 5000000.00, 5000, 'A luxurious villa with beautiful views.', 'Swimming Pool, Garden, Garage', 'property_images/villa.jpg'),
-        ('Modern Apartment', 'Los Angeles', 750000.00, 1200, 'A stylish modern apartment in the city center.', 'Balcony, Gym, Parking', 'property_images/apartment.jpg'),
-        ('Cozy Cottage', 'Seattle', 300000.00, 800, 'A cozy cottage in a peaceful neighborhood.', 'Fireplace, Garden, Patio', 'property_images/cottage.jpg')";
+        ('Modern Apartment', 'Los Angeles', 750000.00, 1200, 'A stylish modern apartment in the city center.', 'Balcony, Gym, Parking', 'property_images/modern_condo.jpg'),
+        ('Cozy Cottage', 'Seattle', 300000.00,  2100, 'A cozy cottage in a peaceful neighborhood.', 'Fireplace, Garden, Patio', 'property_images/cottage.jpg')";
 
     if ($conn->query($insertSampleData) === TRUE) {
         echo "Sample data inserted successfully.<br>";
+
+        // Create the 'buyersWishlistTable' table with the same structure as 'properties' table
+         $createBuyersWishlistTable = "CREATE TABLE IF NOT EXISTS wishlistTable (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(50) NOT NULL,
+            property_name VARCHAR(100) NOT NULL,
+            location VARCHAR(100) NOT NULL,
+            price DECIMAL(10, 2) NOT NULL,
+            size INT NOT NULL,
+            description TEXT,
+            amenities TEXT,
+            image VARCHAR(255) NOT NULL
+        )";
+
+        if ($conn->query($createBuyersWishlistTable) === TRUE) {
+            echo "Table 'buyersWishlistTable' created successfully.";
+        } else {
+            echo "Error creating 'buyersWishlistTable': " . $conn->error;
+        }
     } else {
         echo "Error inserting sample data: " . $conn->error . "<br>";
     }

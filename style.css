@@ -2,15 +2,19 @@
 
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Georgia, serif;
   margin: 0;
   padding: 0;
+ 
+  background-size: cover;
 }
 
+
 header {
-  background-color: #333;
+  background-color: #8fbc8f;
   color: #fff;
-  padding: 10px;
+  padding: 1px;
+     font-family: Georgia, serif;
 }
 
 main {
@@ -22,8 +26,10 @@ section {
 }
 
 h2 {
-  border-bottom: 2px solid #333;
+  
   padding-bottom: 5px;
+  border-bottom: 2px solid #000;
+   font-family: Georgia, serif;
 }
 
 form {
@@ -44,21 +50,23 @@ input[type="password"],
 select {
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #8fbc8f;
   border-radius: 5px;
 }
 
 button {
   padding: 10px;
-  background-color: #333;
+  background-color: #8fbc8f;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #8fbc8f;
 }
 
 /* Custom styles for specific elements */
@@ -81,10 +89,148 @@ button:hover {
 
 /* Buyer Dashboard styles */
 #buyerDashboardContent {
-  background-color: #f5f5f5;
+  background-color: #8fbc8f;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #8fbc8f;
   border-radius: 5px;
 }
 
+/* Property Cards */
+.property-card {
+  border: 1px solid #8fbc8f;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items along the main axis (horizontally) */
+}
 
+.property-card img {
+  width: 100%; /* Ensures all images take the full width of their container */
+  height: 250px; /* Fixed height for all images */
+  object-fit: cover; /* Ensures the images maintain their aspect ratio */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Add some space between the image and property details */
+}
+
+.property-card h3 {
+  margin-top: 0; /* Remove the default margin for h3 elements */
+  margin-bottom: 5px;
+}
+
+.property-card p {
+  margin-bottom: 5px;
+}
+
+/* Wishlist Item */
+.wishlist-item {
+  border: 1px solid #8fbc8f;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items along the main axis (horizontally) */
+}
+
+.wishlist-item img {
+  width: 25%; /* Ensures all images take the full width of their container */
+  height: 250px; /* Fixed height for all images */
+  object-fit: cover; /* Ensures the images maintain their aspect ratio */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Add some space between the image and property details */
+}
+
+.wishlist-item h3 {
+  margin-top: 0; /* Remove the default margin for h3 elements */
+  margin-bottom: 5px;
+}
+
+.wishlist-item p {
+  margin-bottom: 5px;
+}
+
+
+/* Styling for the Search bar container */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#searchInput {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #8fbc8f;
+  border-radius: 5px;
+}
+
+#searchButton {
+  padding: 10px 15px;
+  background-color: #8fbc8f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* Styling for the Logout button container */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#logoutButton {
+  padding: 10px 20px;
+  background-color: #8fbc8f; /* Use a different color for the Logout button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* Set the width of the Logout button to match the width of the Search button */
+  width: 10%;
+}
+
+
+#wishlistButton {
+  padding: 5px 10px; /* Smaller padding for the Add to Wishlist button */
+  background-color: #8fbc8f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* Set the width of the Add to Wishlist button to match the width of the Logout button */
+  width: 45%;
+}
+
+body.background-image {
+  margin: 0;
+  padding: 0;
+ 
+background-image:   linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+       url("nice-place.jpg");
+      background-size: cover;
+	  color: #fff;
+	  text-align: center; 
+	  
+	 		
+}
+
+/* Override header styles within body.background-image */
+body.background-image header {
+  padding: 10px; /* Reset padding for the header inside body.background-image */
+  border-bottom: none; /* Remove border-bottom for the header inside body.background-image */
+    font-family: Georgia, serif;
+}
+
+/* Override h2 styles within body.background-image */
+body.background-image h2 {
+  padding-bottom: 0; /* Reset padding-bottom for h2 inside body.background-image */
+  border-bottom: none; /* Remove border-bottom for h2 inside body.background-image */
+  font-family: Georgia, serif;
+}

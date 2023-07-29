@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <header>
-    <h1>Welcome to PropertEase Connect!</h1>
+    <h1>Welcome to PropertEase Connect!</h1> 
+	<button type="button" id="logoutButton" onclick="logout()">Logout</button>
   </header>
 
   <main>
@@ -27,13 +29,20 @@
       <!-- Display the search results -->
       <div id="searchResults" class="property-cards"></div>
     </section>
-	<!-- Wishlist container -->
+	
+    <!-- Wishlist container -->
     <section>
       <h2>Your Wishlist</h2>
       <div id="wishlistContainer"></div>
     </section>
 
-	<button type="button" id="logoutButton" onclick="logout()">Logout</button>
+    <!-- User Information -->
+    <section>
+      <h2>User Information</h2>
+      <div id="userInfo"></div>
+    </section>
+
+    
   </main>
 
   <script>
@@ -46,7 +55,7 @@
 
       // Display the welcome message
       welcomeNote.innerText = welcomeMessage || "Welcome to the buyer dashboard!";
-	   loadWishlist();
+	  
     }
 
     // Function to perform the search
@@ -69,37 +78,136 @@
       }
     }
 
-    // Function to display the search results with clickable display cards
-     function displaySearchResults(properties) {
-      const searchResults = document.getElementById("searchResults");
-      searchResults.innerHTML = "";
+    // Function to display the search results with clickable images
+  function displaySearchResults(properties) {
+    const searchResults = document.getElementById("searchResults");
+    searchResults.innerHTML = "";
 
-      // Display the search results with clickable display cards
-      properties.forEach(property => {
-        const propertyCard = document.createElement("div");
-        propertyCard.classList.add("property-card");
-        propertyCard.innerHTML = `
-          <a href="property_details.php?id=${property.id}">
-            <img src="${property.image}" alt="${property.property_name}">
-          </a>
-          <h3>${property.property_name}</h3>
-          <p><strong>Location:</strong> ${property.location}</p>
-          <p><strong>Price:</strong> $${property.price}</p>
-          <p><strong>Size:</strong> ${property.size} sqft</p>
-          <p><strong>Description:</strong> ${property.description}</p>
-          <p><strong>Amenities:</strong> ${property.amenities}</p>
-          <button type="button" onclick="addToWishlist(${property.id})">Add to Wishlist</button>
-        `;
-        searchResults.appendChild(propertyCard);
-      });
-    }
+    // Display the search results with property cards
+    properties.forEach(property => {
+      const propertyCard = document.createElement("div");
+      propertyCard.classList.add("property-card");
+      propertyCard.innerHTML = `
+        <a href="property_${property.id}.html"> <!-- Change the link based on property ID -->
+          <img src="${property.image}" alt="${property.property_name}">
+        </a>
+        <h3>${property.property_name}</h3>
+        <p><strong>Location:</strong> ${property.location}</p>
+        <p><strong>Price:</strong> $${property.price}</p>
+        <p><strong>Size:</strong> ${property.size} sqft</p>
+        <p><strong>Description:</strong> ${property.description}</p>
+        <p><strong>Amenities:</strong> ${property.amenities}</p>
+        <button type="button" onclick="addToWishlist(${property.id})">Add to Wishlist</button>
+      `;
+      searchResults.appendChild(propertyCard);
+    });
+  }
+
+
  function logout() {
     // Perform any necessary logout actions (e.g., clearing session data)
     
     // Redirect the user to the login page
     window.location.href = "login.html";
   }
- 
+  // Wishlist array to store property IDs
+  let wishlist = [];
+
+  function addToWishlist(propertyId) {
+  // Check if the property ID is not already in the wishlist
+  if (!wishlist.includes(propertyId)) {
+    // Perform an AJAX request to the server to add the property to the wishlist
+    fetch('add_to_wishlist.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ propertyId: propertyId }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // If property added successfully, update the wishlist array
+          wishlist.push(propertyId);
+          // Update the wishlist UI
+          updateWishlistUI();
+        } else {
+          console.error('Error:', data.error);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  }
+}
+
+
+  function updateWishlistUI() {
+  const wishlistContainer = document.getElementById("wishlistContainer");
+  wishlistContainer.innerHTML = "";
+
+  // Display property cards in the wishlist container
+  wishlist.forEach(propertyId => {
+    // Fetch property details from the server based on propertyId
+    fetch(`get_property_by_id.php?propertyId=${propertyId}`)
+      .then(response => response.json())
+      .then(property => {
+        const wishlistItem = document.createElement("div");
+        wishlistItem.classList.add("wishlist-item");
+        wishlistItem.innerHTML = `
+          <img src="${property.image}" alt="${property.property_name}">
+          <h3>${property.property_name}</h3>
+          <p><strong>Location:</strong> ${property.location}</p>
+          <p><strong>Price:</strong> $${property.price}</p>
+          <p><strong>Size:</strong> ${property.size} sqft</p>
+          <p><strong>Description:</strong> ${property.description}</p>
+          <p><strong>Amenities:</strong> ${property.amenities}</p>
+        `;
+        wishlistContainer.appendChild(wishlistItem);
+      })
+      .catch(error => console.error('Error:', error));
+  });
+}
+
+ // Function to get the current user information
+    function getCurrentUser() {
+      // Perform an AJAX request to the server to get the user information
+      fetch('get_current_user.php')
+        .then(response => response.json())
+        .then(user => {
+          const userInfoContainer = document.getElementById("userInfo");
+          userInfoContainer.innerHTML = `
+            <p><strong>User ID:</strong> ${user.id}</p>
+            <p><strong>Username:</strong> ${user.username}</p>
+            <p><strong>User Type:</strong> ${user.userType}</p>
+          `;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+ // Function to display property details in the wishlist
+  function displayPropertyInWishlist(propertyId) {
+    // Perform an AJAX request to get the property details based on the propertyId
+    fetch(`get_property_by_id.php?propertyId=${propertyId}`)
+      .then(response => response.json())
+      .then(property => {
+        const wishlistContainer = document.getElementById("wishlistContainer");
+
+        // Display the property details in the wishlist
+        const wishlistItem = document.createElement("div");
+        wishlistItem.classList.add("wishlist-item");
+        wishlistItem.innerHTML = `
+          <img src="${property.image}" alt="${property.property_name}">
+          <h3>${property.property_name}</h3>
+          <p><strong>Location:</strong> ${property.location}</p>
+          <p><strong>Price:</strong> $${property.price}</p>
+          <p><strong>Size:</strong> ${property.size} sqft</p>
+          <p><strong>Description:</strong> ${property.description}</p>
+          <p><strong>Amenities:</strong> ${property.amenities}</p>
+        `;
+        wishlistContainer.appendChild(wishlistItem);
+      })
+      .catch(error => console.error('Error:', error));
+  }
+    // Call the getCurrentUser function to display the user information
+    getCurrentUser();
 
   
     showWelcomeMessage();
